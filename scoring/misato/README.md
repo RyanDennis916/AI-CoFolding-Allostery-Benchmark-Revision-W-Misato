@@ -25,3 +25,16 @@ python scoring/misato/audit_references.py `
   --out-csv misato_output\inventory\reference_audit_sample.csv `
   --limit 100
 ```
+
+`audit_hdf5_entries.py` is the provenance bridge for an original MISATO MD
+HDF5 file. It reads only metadata for the requested target groups (not all
+trajectory coordinates) and reports the ligand-selection rule used by the
+public MISATO preprocessing code. Run it in an environment with `h5py` and
+`numpy`:
+
+```powershell
+python scoring/misato/audit_hdf5_entries.py `
+  --h5 'D:\MISATO\MD.hdf5' `
+  --target-manifest misato_output\inventory\target_manifest.csv `
+  --out-csv misato_output\inventory\misato_hdf5_audit.csv
+```

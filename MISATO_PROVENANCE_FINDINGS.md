@@ -46,6 +46,13 @@ ligand atoms where `atoms_residue == 0`, falling back to the final molecule for
 peptide ligands. This selection can naturally produce a multi-component ligand
 assembly. See [preprocessing_db.py](https://github.com/t7morgen/misato-dataset/blob/master/src/data/processing/preprocessing_db.py).
 
+This was verified against the repository's supplied `tiny_md.hdf5` sample.
+For `10GS`, `11GS`, and `16PK`, the `atoms_residue == 0` atom selection has
+the exact same heavy-element signature as the delivered EquiBind SDF. The
+`11GS` selection contains 66 total atoms / 39 heavy atoms, consistent with the
+combined `GSH` + `EAA` representation above. Each sample group has 100 stored
+trajectory frames; the sample alone does not identify which frame Lucas used.
+
 ## Required before final scoring
 
 We need the exact original inputs for the evaluated IDs, or an equivalent
