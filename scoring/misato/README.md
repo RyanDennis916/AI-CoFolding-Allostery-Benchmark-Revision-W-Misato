@@ -13,6 +13,45 @@ python scoring/misato/create_manifest.py `
 
 The delivered files are ligand-only. This tool deliberately does not calculate RMSD: protein-aligned docking metrics require validation of the receptor/reference coordinate frame and ligand identity.
 
+## New crystal-reference path (separate from the old benchmark)
+
+`fetch_crystal_cifs.py` uses the delivered target manifest, strips any suffix
+only for the four-character RCSB lookup, and saves **asymmetric-unit** entry
+CIFs in `misato_output/rcsb_asymmetric_unit/`. It never changes the existing
+ASD/PLA reference cache or overwrites an existing CIF or report. A bounded
+test run is:
+
+```powershell
+python scoring/misato/fetch_crystal_cifs.py `
+  --limit 20 `
+  --report misato_output/rcsb_asymmetric_unit/fetch_first20.csv
+```
+
+Omit `--limit` for all delivered targets and choose a new `--report` path.
+Existing valid CIFs are reused. The script requires `requests`.
+
+`audit_crystal_poses.py` reads the new cache plus the original ligand-only
+SDFs, finds native crystal ligands by heavy-element signature, and attempts
+element/connectivity-aware direct-coordinate RMSD for single-component
+matches. It uses **one selected crystal copy for both methods**. Composite,
+ambiguous, unmatched, and unreadable cases are flagged instead of forced into
+a score. A bounded run is:
+
+```powershell
+python scoring/misato/audit_crystal_poses.py `
+  --limit 20 `
+  --out-csv misato_output/crystal_pose_first20.csv
+```
+
+The output column `pose_rmsd_angstrom_provisional` is exploratory: chemical
+bonds in the native ligand are inferred from coordinates, and when multiple
+crystal copies exist the nearest copy is selected using DiffDock's position
+(or EquiBind's if DiffDock is unavailable). This can favor the anchor method.
+The result is **not** the original pipeline's OpenStructure BiSyRMSD or
+lDDT-PLI. Review graph/coordinate-frame status and reference selection before
+aggregating any values. The script needs `gemmi`, `numpy`, and `rdkit`; both
+scripts refuse to overwrite an existing output report.
+
 ## Compare target IDs with the published MISATO MD splits
 
 `compare_published_splits.py` compares the target manifest against Zenodo's
