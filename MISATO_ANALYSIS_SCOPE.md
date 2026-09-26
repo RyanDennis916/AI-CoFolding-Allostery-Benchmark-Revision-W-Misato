@@ -10,7 +10,9 @@ It does not include new docking runs, TankBind, full MISATO MD reprocessing, edi
 
 ## Provenance constraint
 
-The supplied folders contain ligand-only SDF predictions. They do not contain receptor structures, input preparation scripts, logs, configurations, or trajectory-frame identifiers. They establish which IDs were run, but not whether Lucas used static experimental receptors or MD-derived conformations. No protein-aligned docking score may be reported until the coordinate frame is validated.
+The supplied folders contain ligand-only SDF predictions. They do not contain receptor structures, input preparation scripts, logs, or configurations. Lucas subsequently reported that both docking methods used static RCSB crystal structures and one ligand conformer built from MISATO QM coordinates; the MD trajectories were **not** used for docking. This is a collaborator report, not yet independently verified from his scripts or input files. No protein-aligned docking score may be reported until the actual receptor/reference coordinate frame and ligand mapping are validated. Reproducing these docking inputs does not require the full MD trajectory archive.
+
+The published MD train/validation/test lists are an overlap audit, **not** the denominator for reconstructing Lucas's QM-based filtering. The repository's RCSB retrieval and reference-scoring code can be adapted for an independent crystal-reference evaluation of the delivered poses; this does not require Lucas's complete input archive or per-ID failure table. Crystal-reference ligand pose RMSD and lDDT-PLI are potentially informative after coordinate-frame and ligand-identity validation. Ambiguous references must be flagged or excluded. Pocket/binding-site RMSD and QS score from an unchanged crystal receptor would be trivial or non-discriminative, not comparable to protein cofolding performance claims.
 
 ## Decision gate
 

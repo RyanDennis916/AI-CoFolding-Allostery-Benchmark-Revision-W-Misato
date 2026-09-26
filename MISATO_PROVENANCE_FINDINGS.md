@@ -3,6 +3,31 @@
 Generated from the delivered output folders and the public MISATO source code.
 This is an evidence log, not a statement of final benchmark results.
 
+## Lucas's reported input preparation (pending file-level verification)
+
+Lucas reported that he downloaded the complete `MD.hdf5` and `QM.hdf5`, but
+used **neither MD trajectories nor MD-derived receptor frames for docking**.
+Both DiffDock and EquiBind received static RCSB crystal protein structures and
+one ligand conformer built from MISATO QM coordinates. He did not use the
+official MD train/validation/test splits, MD restart/topology files, or
+electronic densities. These statements are collaborator-reported provenance;
+his preparation scripts and exact input files have not yet been inspected.
+
+Lucas's counts reconcile as follows, with one unresolved discrepancy:
+
+- QM: 19,413 ligand IDs in his HDF5, versus 19,443 stated in the paper.
+- Ligand SDFs: 19,392 written + 21 sanitization failures = 19,413.
+- RCSB proteins: 14,057 saved + 5,356 missing = 19,413. Lucas says most
+  missing proteins reflect failed downloads, not a scientific cutoff.
+- DiffDock: 14,037 input pairs; 8,419 posed + 5,610 RDKit-unreadable-ligand
+  skips = 14,029, leaving **8 input pairs unaccounted for** in that report.
+- EquiBind: 8,565 posed + 10,827 failed = 19,392 ligand SDFs. Lucas attributes
+  5,354 of the failures to missing proteins; the remainder need finer labels.
+
+The 8,419 DiffDock and 8,565 EquiBind poses match the delivered primary-file
+counts below. No per-ID failure log or input manifest has yet been supplied to
+verify the other totals or the reason for each exclusion.
+
 ## Delivered-output audit
 
 - EquiBind: 8,569 target directories; 8,565 contain the expected
@@ -20,6 +45,23 @@ This is an evidence log, not a statement of final benchmark results.
 
 The generated local manifests in `misato_output/inventory/` contain the full
 per-ID disposition and SHA-256 record for every delivered SDF.
+
+## Comparison with the published MISATO MD splits
+
+The checksum-verified `train_MD.txt`, `val_MD.txt`, and `test_MD.txt` lists
+contain 16,972 distinct IDs (13,765 train; 1,595 validation; 1,612 test).
+The delivered output folders contain 8,606 distinct IDs. Of those, 7,482
+appear in the published MD splits and 1,124 do not. Among the split-listed
+IDs, 7,368 have both primary ligand candidates; 9,490 split-listed IDs were
+not delivered by either method. Of the 1,124 out-of-split IDs, 1,011 have
+both primary ligand candidates.
+
+These are ID-level **MD-split overlap** observations, not a reconstruction of
+Lucas's filtering denominator: Lucas says he used QM-derived ligands and did
+not apply these splits. An out-of-split ID is not proof that it is absent from
+QM.hdf5 or every MISATO source file. See
+`scoring/misato/compare_published_splits.py` and
+`misato_output/split_comparison/` for the reproducible comparison.
 
 ## Reference audit: why PDB alone is insufficient
 
@@ -50,23 +92,30 @@ This was verified against the repository's supplied `tiny_md.hdf5` sample.
 For `10GS`, `11GS`, and `16PK`, the `atoms_residue == 0` atom selection has
 the exact same heavy-element signature as the delivered EquiBind SDF. The
 `11GS` selection contains 66 total atoms / 39 heavy atoms, consistent with the
-combined `GSH` + `EAA` representation above. Each sample group has 100 stored
-trajectory frames; the sample alone does not identify which frame Lucas used.
+combined `GSH` + `EAA` representation above. This chemical-identity match is
+not evidence that an MD frame was used; Lucas reports that none was.
 
-## Required before final scoring
+## Path to crystal-reference scoring
 
-We need the exact original inputs for the evaluated IDs, or an equivalent
-reconstruction from the MD HDF5:
+The repository already contains RCSB download helpers, experimental-reference
+retrieval, and ligand-scoring machinery. These can be adapted to the delivered
+Misato output IDs without waiting for a per-ID failure table from Lucas. The
+reference ligand can be inferred by atom/graph matching where unique;
+ambiguous, composite, or unmatched cases must be flagged or reviewed rather
+than silently assigned. The old `select_ligand.py` default of choosing the
+largest non-water residue is not sufficient for cases such as `11GS`.
 
-1. which trajectory frame(s) supplied each receptor and ligand;
-2. the exact ligand atom-selection/preparation rule; and
-3. the coordinate transform, if any, applied before EquiBind and DiffDock.
+For each scored target, first verify that the predicted SDF coordinates and
+the chosen RCSB crystal reference share a valid coordinate frame, and that
+the selected native ligand corresponds to the predicted chemical entity.
+Then crystal-reference ligand pose RMSD and lDDT-PLI can be reported with an
+explicit scored/excluded denominator. QS and protein pocket RMSD from an
+unchanged crystal receptor would be trivial, not an independent docking result.
 
-The full MISATO archive is not needed merely to inspect the schema. However,
-the relevant per-ID HDF5 entries (plus topology/restart information if needed
-to reconstruct the receptor) are needed to reproduce Lucas's inputs and to
-compute protein-aligned pose, pocket, QS, and lDDT-PLI metrics honestly.
-
-Until then, direct RMSD against a substituted RCSB receptor would be a
-provisional, non-equivalent analysis and must not be reported as the original
-MISATO docking benchmark.
+Lucas's exact prepared receptor/SDF files or preparation commands are useful
+for verifying exact reproduction, especially if coordinate frames do not
+match. They are **not a prerequisite** to starting an independent,
+crystal-reference evaluation of the delivered poses. A complete per-ID failure
+table and an explanation of eight DiffDock input pairs are not required for
+that narrower evaluation. The full MD archive and its topology/restart files
+are also not required.
