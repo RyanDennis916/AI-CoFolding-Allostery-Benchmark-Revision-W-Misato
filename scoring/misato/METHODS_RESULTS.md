@@ -184,3 +184,14 @@ This strips deposited hydrogens from native ligands for parity with the
 heavy-atom delivered SDFs; no source CIF or SDF is modified. The receptor
 is the static crystal polymer, with non-polymer species and waters removed.
 These preprocessing choices apply consistently to both docking methods.
+
+### Multi-residue ligand recovery
+
+Short polymer chains (at most 30 residues), branched glycans, and nearby
+multi-component native ligands were audited for complete heavy-element and
+bond-graph identity with each delivered pose. Graph-valid native assemblies
+were collapsed into a single generic pseudo-residue per crystal copy, and
+the pose into the same graph, because OpenStructure's ligand scorer requires
+a single-residue ligand. Original repeated atom names were replaced by
+unique names keyed to verified pose-atom indices; the coordinates and bonds
+were retained. All valid native copies were offered for assignment.
