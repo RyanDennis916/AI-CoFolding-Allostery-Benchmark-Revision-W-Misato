@@ -204,3 +204,11 @@ the graph-mapping cap. Thus the initial estimate of about 1,590 recoveries
 per method was not supported by the chemistry checks. Validation included
 native-versus-native controls and short-peptide, glycan, and composite
 spot checks; the detailed record is in MULTIRESIDUE_RECOVERY_PROTOCOL.md.
+
+After a higher-limit retry, 15,679 of 16,984 delivered method rows have
+both formal OpenStructure BiSyRMSD and lDDT-PLI (92.3%). This comprises
+6,633 unchanged v3 rows, 7,118 additional all-copies rows, 1,926
+multi-residue rows, and two recovered all-copies timeouts. By method,
+formal paired-metric coverage is 7,780/8,419 DiffDock and 7,899/8,565
+EquiBind. These are coverage figures among delivered poses, not success
+rates over attempted docking inputs or all MISATO complexes.
