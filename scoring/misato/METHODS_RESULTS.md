@@ -212,3 +212,12 @@ multi-residue rows, and two recovered all-copies timeouts. By method,
 formal paired-metric coverage is 7,780/8,419 DiffDock and 7,899/8,565
 EquiBind. These are coverage figures among delivered poses, not success
 rates over attempted docking inputs or all MISATO complexes.
+
+The remaining 1,305 delivered rows are not silently treated as failures
+of a docking model: 1,264 lack an acceptable crystal reference or graph
+match, 26 have only partial/no formal metrics, seven have only a separately
+labeled fixed-frame direct RMSD, four had scorer exceptions, two failed
+reference mapping, and two are the predeclared 5EQQ runtime exclusions.
+The multi-residue hard cases 3M3R timed out again and 4YEE exceeded a
+runtime guard; they remain among the direct-only diagnostics, not formal
+scores. Each non-scored row has an explicit status and reason.
