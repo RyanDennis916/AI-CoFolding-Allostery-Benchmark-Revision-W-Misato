@@ -258,3 +258,16 @@ composite assemblies may also be out of the model's small-molecule
 training domain, so their rescoring should be stratified in analysis.
 See the gnina software and MISATO data publications linked in
 STATIC_METRICS_PROTOCOL.md.
+
+### Static-receptor interface QS
+
+The ligand-inclusive contact score adapts fix_qs_dynamicbind.py to an
+unchanged crystal receptor. For each polymer residue, the minimum
+heavy-atom distance is measured to the assigned native crystal ligand
+and to the delivered pose. Contacts use a 12 Å cutoff. Shared contacts
+are weighted by max(0, 1 - absolute distance difference / 12 Å); each
+contact present only in one placement adds one nonshared count. QS is
+the sum of shared weights divided by that sum plus nonshared count.
+No receptor superposition or residue remapping is performed. The
+output column is labeled static-receptor QS, never pooled with the
+co-folding QS that also reflects receptor prediction error.
