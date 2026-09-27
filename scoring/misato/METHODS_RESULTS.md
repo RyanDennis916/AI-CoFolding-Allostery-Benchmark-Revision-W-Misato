@@ -289,3 +289,15 @@ receptor_mode is static_crystal. Comparative figures must filter on this
 mode and exclude blank pocket RMSD rather than treating missing values
 as perfect receptor prediction. Static-receptor QS and pose RMSD describe
 different aspects of ligand placement; neither is renamed pocket RMSD.
+
+### Pending final export and figures
+
+The step-6 evalspreadsheets/misato_v3 export, sidecar provenance CSVs,
+and comparative figures must wait for the full 16,984-row gnina status
+table. They are not claimed by this addendum. The final plots should
+report each method's own formally scored cohort and the paired subset
+where both methods scored, with blanks excluded from denominators.
+The previously defined exact stereochemistry-match subset remains a
+sensitivity analysis. The final Methods/Results numbers should be
+regenerated from the completed joined table, not copied from a partial
+gnina run or the earlier strict-reference tables.
