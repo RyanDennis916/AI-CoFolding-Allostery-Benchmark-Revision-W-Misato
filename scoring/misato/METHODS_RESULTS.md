@@ -221,3 +221,11 @@ reference mapping, and two are the predeclared 5EQQ runtime exclusions.
 The multi-residue hard cases 3M3R timed out again and 4YEE exceeded a
 runtime guard; they remain among the direct-only diagnostics, not formal
 scores. Each non-scored row has an explicit status and reason.
+
+Fixed-frame direct graph RMSD is not substituted into the formal pose-RMSD
+column. For multi-residue recovered targets, only 1,631/1,924 initial
+formal scores agreed with the direct diagnostic within 0.5 Å; 263 differed
+by more than 2 Å. This is expected to be possible because BiSyRMSD
+superposes a binding site and can select equivalent crystal copies, whereas
+the direct diagnostic remains in the deposited coordinate frame. The seven
+direct-only rows retain blank formal RMSD and lDDT-PLI values.
