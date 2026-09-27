@@ -178,3 +178,9 @@ prediction-proximity exclusion for multi-copy targets. The assigned copy
 is recorded per pose in the versioned score table. Scores from the original
 v3 strict run are preserved byte-for-byte when they already exist; an
 all-copies result fills only a previously unscored pose.
+
+The reference entity is reduced to heavy atoms before ligand scoring.
+This strips deposited hydrogens from native ligands for parity with the
+heavy-atom delivered SDFs; no source CIF or SDF is modified. The receptor
+is the static crystal polymer, with non-polymer species and waters removed.
+These preprocessing choices apply consistently to both docking methods.
