@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import logging
 import math
 import signal
 import sys
@@ -170,7 +169,7 @@ def score_target(target_id: str, rows: list[dict[str, str]], root_text: str,
         receptor = receptor_without_ligands(reference.read_text(encoding="utf-8"),
                                             ligand_subchains)
         signal.alarm(0)
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001 - retain per-target failure provenance
         signal.alarm(0)
         return [{"target_id": target_id, "method": row["method"],
                  "status": "failed_reference_preparation", "error": f"{type(error).__name__}: {error}",
@@ -204,7 +203,7 @@ def score_target(target_id: str, rows: list[dict[str, str]], root_text: str,
                               and item["lddt_pli"] != "" else "partial_or_no_metrics")
             if item["status"] != "scored_both":
                 item["error"] = "OST returned one or no metrics"
-        except Exception as error:
+        except Exception as error:  # noqa: BLE001 - retain per-pose failure provenance
             item["status"] = "failed_runtime_timeout" if isinstance(error, TimeoutError) else "failed_scoring"
             item["error"] = f"{type(error).__name__}: {error}"
         finally:
@@ -277,7 +276,7 @@ def main() -> int:
                 target_id = futures[future]
                 try:
                     completed = future.result()
-                except Exception as error:
+                except Exception as error:  # noqa: BLE001 - retain worker failure provenance
                     completed = [{"target_id": target_id, "method": row["method"],
                                   "status": "failed_worker", "error": f"{type(error).__name__}: {error}"}
                                  for row in by_id[target_id]]

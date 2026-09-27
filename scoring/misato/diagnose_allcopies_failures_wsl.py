@@ -22,7 +22,7 @@ def reason(scorer) -> str:
     try:
         issue, description = scorer.guess_model_ligand_unassigned_reason(0)
         return f"{issue}: {description}"
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001 - preserve OST diagnostic failures
         return f"unresolved:{type(error).__name__}:{error}"
 
 
@@ -45,7 +45,7 @@ def main() -> int:
             continue
         issues = []
 
-        def capture(scorer):
+        def capture(scorer, issues=issues):
             issues.append(reason(scorer))
             return scorer_module._assigned_original(scorer)
 

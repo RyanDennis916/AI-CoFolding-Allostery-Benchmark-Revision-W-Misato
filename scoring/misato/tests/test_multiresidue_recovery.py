@@ -7,7 +7,10 @@ from types import SimpleNamespace
 from rdkit import Chem
 
 from scoring.misato.merge_recovery_scores import merge
-from scoring.misato.score_multiresidue_recovery_wsl import graph_valid_copies, same_indexed_heavy_graph
+from scoring.misato.score_multiresidue_recovery_wsl import (
+    graph_valid_copies,
+    same_indexed_heavy_graph,
+)
 
 
 class MultiresidueRecoveryTests(unittest.TestCase):

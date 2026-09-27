@@ -10,7 +10,6 @@ import csv
 from collections import Counter
 from pathlib import Path
 
-
 FIELDS = [
     "target_id", "method", "score_status", "pose_rmsd_angstrom", "pose_rmsd_method",
     "lddt_pli", "direct_rmsd_fallback_angstrom", "metric_source",

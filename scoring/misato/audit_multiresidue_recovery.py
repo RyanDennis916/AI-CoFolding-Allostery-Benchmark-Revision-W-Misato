@@ -15,11 +15,21 @@ import gemmi
 import numpy as np
 
 try:
-    from .audit_crystal_poses import (direct_pose_rmsd, heavy_mol, native_graph,
-                                      reference_residues, signature)
+    from .audit_crystal_poses import (
+        direct_pose_rmsd,
+        heavy_mol,
+        native_graph,
+        reference_residues,
+        signature,
+    )
 except ImportError:  # direct script execution
-    from audit_crystal_poses import (direct_pose_rmsd, heavy_mol, native_graph,
-                                     reference_residues, signature)
+    from audit_crystal_poses import (
+        direct_pose_rmsd,
+        heavy_mol,
+        native_graph,
+        reference_residues,
+        signature,
+    )
 
 
 FIELDS = ["target_id", "method", "old_status", "candidate_kind", "candidate_label",
@@ -158,7 +168,7 @@ def main() -> int:
                     outcome = audit_pose(row, candidates)
                     writer.writerow(outcome)
                     counts[str(outcome["graph_status"])] += 1
-            except Exception as error:
+            except Exception as error:  # noqa: BLE001 - retain per-pose audit failures
                 for row in rows:
                     writer.writerow({"target_id": target_id, "method": row["method"],
                                      "old_status": row["status"], "graph_status":

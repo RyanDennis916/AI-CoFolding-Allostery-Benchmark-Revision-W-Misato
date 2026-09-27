@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import argparse
 import sys
-from collections import Counter
 from pathlib import Path
 
 from audit_crystal_poses import heavy_mol, native_graph, signature, untyped_graph
@@ -40,11 +39,12 @@ def main() -> int:
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(root / "scoring" / "plb_bench"))
-    from score_static_docking_wsl import resolve_path
-    from plb_bench.scoring import _load_mmcif_text
+    import csv
+
     from ost import mol
     from ost.mol.alg import ligand_scoring_lddtpli, ligand_scoring_scrmsd
-    import csv
+    from plb_bench.scoring import _load_mmcif_text
+    from score_static_docking_wsl import resolve_path
 
     with (root / "misato_output" / "misato_score_allcopies_v1.csv").open(newline="") as handle:
         score = next(row for row in csv.DictReader(handle)
