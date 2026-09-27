@@ -168,3 +168,13 @@ protein downloads and RDKit ligand-read failures; his input-pipeline counts
 are collaborator-reported and do not form a measured model-failure rate.
 Neither the official MD train/validation/test split nor trajectory frames
 were used for these rigid-receptor docking runs.
+
+### Reference assignment across crystal copies
+
+The extension presents every chemically matching crystal ligand copy to
+OpenStructure, allowing its ligand scorer to assign the appropriate copy
+as in the co-folding benchmark. This replaces the strict baseline's
+prediction-proximity exclusion for multi-copy targets. The assigned copy
+is recorded per pose in the versioned score table. Scores from the original
+v3 strict run are preserved byte-for-byte when they already exist; an
+all-copies result fills only a previously unscored pose.
