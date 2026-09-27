@@ -248,3 +248,13 @@ optimized. The same gnina version, receptor-preparation rule, and score
 parser apply to both docking methods. The per-pose status is retained if
 gnina cannot score a delivered ligand. The full run is resumable and has
 not yet completed at the time of this addendum.
+
+Gnina's CNN models were developed with PDBbind-derived complexes, and
+MISATO was itself built from PDBbind 2022. Exact or related complex
+overlap may therefore make CNNscore optimistic as an accuracy estimator.
+This score is used for common-scale ranking and calibration diagnostics,
+not as an independent absolute success claim. Peptide, glycan, and
+composite assemblies may also be out of the model's small-molecule
+training domain, so their rescoring should be stratified in analysis.
+See the gnina software and MISATO data publications linked in
+STATIC_METRICS_PROTOCOL.md.
