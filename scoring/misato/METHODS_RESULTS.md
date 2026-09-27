@@ -239,3 +239,12 @@ This logit is not a probability. EquiBind did not deliver a native
 confidence score, so its method-native confidence stays blank. The
 separate rescore_confidence column is reserved for a common gnina
 CNNscore on both methods; the two scales must not be conflated.
+
+Gnina v1.3.3 receives the delivered SDF and a temporary receptor PDB
+containing the crystal polymer, with waters, non-polymer ligands, and
+graph-verified short-polymer native ligands removed. It runs in score-only
+mode and reports CNNscore between 0 and 1; the ligand is not redocked or
+optimized. The same gnina version, receptor-preparation rule, and score
+parser apply to both docking methods. The per-pose status is retained if
+gnina cannot score a delivered ligand. The full run is resumable and has
+not yet completed at the time of this addendum.
