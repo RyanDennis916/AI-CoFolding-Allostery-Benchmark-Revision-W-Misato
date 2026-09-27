@@ -229,3 +229,13 @@ by more than 2 Å. This is expected to be possible because BiSyRMSD
 superposes a binding site and can select equivalent crystal copies, whereas
 the direct diagnostic remains in the deposited coordinate frame. The seven
 direct-only rows retain blank formal RMSD and lDDT-PLI values.
+
+### Confidence and rescoring
+
+The method-native confidence column is DiffDock's rank-1 logit, recovered
+for all 8,419 delivered DiffDock poses by exact SHA-256 identity between
+the primary rank1.sdf and a confidence-named SDF in the same delivery.
+This logit is not a probability. EquiBind did not deliver a native
+confidence score, so its method-native confidence stays blank. The
+separate rescore_confidence column is reserved for a common gnina
+CNNscore on both methods; the two scales must not be conflated.
