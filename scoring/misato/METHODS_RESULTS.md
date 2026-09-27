@@ -149,3 +149,11 @@ models. The full MD HDF5 is **not** needed to score these static poses, but
 is needed for any additional MD-derived half of the earlier benchmark.
 The current local `MD.hdf5` has a transfer sidecar and fails HDF5 root
 parsing despite its apparent full size, so it was not used.
+
+## Updated delivered-pose extension (27 September 2026)
+
+The preceding strict-reference tables are retained as a historical baseline.
+The versioned all-copies and multi-residue extension below supersedes their
+*coverage* counts; it does not overwrite the old scores or imply that a
+manuscript-ready comparison has already been exported. Gnina rescoring is
+still in progress locally, and final figures have not been regenerated.
