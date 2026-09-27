@@ -271,3 +271,11 @@ the sum of shared weights divided by that sum plus nonshared count.
 No receptor superposition or residue remapping is performed. The
 output column is labeled static-receptor QS, never pooled with the
 co-folding QS that also reflects receptor prediction error.
+
+Static-receptor QS was obtained for all 15,679 formally scored poses.
+Every native-ligand self-control was exactly 1.0; shifting that ligand
+well outside the receptor gave 0.0. Across formally scored rows, its
+Spearman correlation with lDDT-PLI is 0.653 overall (0.496 DiffDock,
+0.864 EquiBind). QS measures interface-contact conservation rather than
+atomwise placement: if the two contact sets are identical, this formula
+can equal 1.0 even when their shared-contact distances differ.
