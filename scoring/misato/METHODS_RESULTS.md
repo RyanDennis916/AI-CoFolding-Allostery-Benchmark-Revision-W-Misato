@@ -195,3 +195,12 @@ the pose into the same graph, because OpenStructure's ligand scorer requires
 a single-residue ligand. Original repeated atom names were replaced by
 unique names keyed to verified pose-atom indices; the coordinates and bonds
 were retained. All valid native copies were offered for assignment.
+
+The expanded audit examined 3,119 previously excluded method rows over
+1,573 IDs. Full graph matches occurred in 1,933 rows: 1,444 short-polymer,
+386 branched-glycan, and 103 nearby composite rows. Another 1,159 lacked
+an exact elemental candidate, 13 had a bond-count mismatch, and 14 exceeded
+the graph-mapping cap. Thus the initial estimate of about 1,590 recoveries
+per method was not supported by the chemistry checks. Validation included
+native-versus-native controls and short-peptide, glycan, and composite
+spot checks; the detailed record is in MULTIRESIDUE_RECOVERY_PROTOCOL.md.
