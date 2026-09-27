@@ -1,5 +1,14 @@
 # MISATO result intake
 
+For the delivered-pose extension, see
+[METHODS_RESULTS.md](METHODS_RESULTS.md) for the versioned Methods/Results
+addendum, [MULTIRESIDUE_RECOVERY_PROTOCOL.md](MULTIRESIDUE_RECOVERY_PROTOCOL.md)
+for steps 1–2, and [STATIC_METRICS_PROTOCOL.md](STATIC_METRICS_PROTOCOL.md)
+for steps 3–5. The latter's gnina run is resumable and its final join must
+wait for every delivered pose; the earlier strict-reference CSVs remain
+untouched. [RUN_STEPS_3_TO_5.md](RUN_STEPS_3_TO_5.md) contains the visible
+local commands and progress check.
+
 `create_manifest.py` inventories the supplied EquiBind and DiffDock trees without changing them. It writes a SHA-256 raw-file manifest, a per-target cohort manifest, and an inventory summary.
 
 Only `lig_equibind_corrected.sdf` (EquiBind) and `rank1.sdf` (DiffDock) are primary candidates. Other DiffDock `rank*_confidence-*.sdf` files are retained as repeat-run evidence, never silently pooled into the primary result.
