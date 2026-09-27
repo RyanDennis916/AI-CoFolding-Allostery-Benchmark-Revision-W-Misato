@@ -157,3 +157,14 @@ The versioned all-copies and multi-residue extension below supersedes their
 *coverage* counts; it does not overwrite the old scores or imply that a
 manuscript-ready comparison has already been exported. Gnina rescoring is
 still in progress locally, and final figures have not been regenerated.
+
+### Delivered denominator and selection limitation
+
+The denominator for every docking coverage percentage is the delivered
+primary-pose cohort: 8,419 DiffDock poses and 8,565 EquiBind poses (16,984
+method rows). Roughly eleven thousand of the 19,413 QM IDs were never posed
+by either method. Lucas attributed missing inputs chiefly to failed RCSB
+protein downloads and RDKit ligand-read failures; his input-pipeline counts
+are collaborator-reported and do not form a measured model-failure rate.
+Neither the official MD train/validation/test split nor trajectory frames
+were used for these rigid-receptor docking runs.
