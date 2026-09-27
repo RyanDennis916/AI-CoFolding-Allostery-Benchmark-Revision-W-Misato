@@ -279,3 +279,13 @@ Spearman correlation with lDDT-PLI is 0.653 overall (0.496 DiffDock,
 0.864 EquiBind). QS measures interface-contact conservation rather than
 atomwise placement: if the two contact sets are identical, this formula
 can equal 1.0 even when their shared-contact distances differ.
+
+### Pocket RMSD and receptor representation
+
+Pocket Cα RMSD is not applicable here: both methods placed ligands into
+the reference crystal receptor and did not output a redesigned receptor
+for comparison. The pocket-RMSD field remains blank, not zero, and
+receptor_mode is static_crystal. Comparative figures must filter on this
+mode and exclude blank pocket RMSD rather than treating missing values
+as perfect receptor prediction. Static-receptor QS and pose RMSD describe
+different aspects of ligand placement; neither is renamed pocket RMSD.
